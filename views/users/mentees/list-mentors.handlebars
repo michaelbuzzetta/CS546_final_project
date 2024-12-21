@@ -1,0 +1,74 @@
+<main class="container my-3">
+    <div class="row d-flex text-center">
+        <h2>Book a sessions</h2>
+    </div>
+    <div class="row pt-4 gy-2">
+        {{#if mentors}}
+            {{#each mentors}}
+                <div class="card text-bg-dark">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between">
+                            <div class="d-flex flex-row">
+                                <div class="mx-1">
+                                    {{#if this.profile_image}}
+                                        <img
+                                            src="{{this.profile_image}}"
+                                            alt="{{this.name}}"
+                                            class="rounded-circle"
+                                            width="64"
+                                            height="64"
+                                        />
+                                    {{else}}
+                                        <i
+                                            class="fa-solid fa-user"
+                                            style="color: #003c8a; font-size:75px"
+                                        ></i>
+                                    {{/if}}
+                                </div>
+                                <div class="mx-1">
+                                    <div class="mb-2">
+                                        <h5 class="card-title fs4-text mb-0"><a
+                                                class="text-decoration-none"
+                                                href="/mentor/{{this._id}}"
+                                                data-bs-toggle="tooltip"
+                                                data-bs-title="Click to view full profile"
+                                            >{{this.name}}</a></h5>
+
+                                    </div>
+
+                                    <div
+                                        class="card-text text-wrap text-break"
+                                    >{{summary}}</div>
+                                    <ol
+                                        class="list-group list-group-horizontal mb-2 flex-wrap"
+                                    >
+                                        {{#each this.subject_areas}}
+                                            <li
+                                                class="list-group-item border-0 p-0 me-2 bg-transparent"
+                                            >
+                                                <p
+                                                    class="badge rounded-pill text-bg-info m-0"
+                                                >{{name}}</p>
+                                            </li>
+                                        {{/each}}
+                                    </ol>
+                                </div>
+                            </div>
+                            <div class="p-1">
+                                <a
+                                    href="/sessions/booking/book/{{this._id}}"
+                                    class="btn btn-primary"
+                                >Book Session</a>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            {{/each}}
+        {{else}}
+            <p
+                class="mt-5 text-center fw-lighter fst-italic fs-6 text-secondary"
+            >No mentors found.</p>
+        {{/if}}
+    </div>
+</main>

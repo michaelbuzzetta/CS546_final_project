@@ -1,0 +1,130 @@
+<main class="container my-5">
+    <div class="main-body">
+        {{#if isOwner}}
+            <div class="row mb-3">
+                <div class="d-flex justify-content-end">
+                    <a class="btn btn-primary" href="/{{profileInfo.userType}}/{{profileInfo._id}}/edit">
+                        <i class="fa-regular fa-pen-to-square me-2" style="color: #ffffff;"></i>Edit Profile
+                    </a>
+                </div>
+            </div>
+        {{/if}}
+        <div class="row gutters-sm">
+            <div class="col-md-4 mb-3">
+                <div class="card text-bg-dark">
+                    <div class="card-body">
+                        <div class="d-flex flex-column align-items-center text-center">
+                            {{#if profileInfo.profile_image}}
+                                <img src="{{profileInfo.profile_image}}" alt="{{profileInfo.first_name}} {{profileInfo.last_name}}" class="rounded-circle" width="128" height="128"/>
+                            {{else}}
+                                <i class="fa-solid fa-user" style="color: #003c8a; font-size:75px;"></i>
+                            {{/if}}
+                            <div class="mt-3">
+                                <h4>{{profileInfo.first_name}} {{profileInfo.last_name}}</h4>
+                                {{#if profileInfo.averageRating}}
+                                    <div class="ratings-render" data-rating={{profileInfo.averageRating}}></div>
+                                    <p class="text-secondary">({{profileInfo.reviews.length}} reviews)</p>
+                                {{else}}
+                                    <p class="text-secondary fs-6 fw-lighter fst-italic">0 reviews</p>
+                                {{/if}}
+                                <p class="text-secondary mb-1">{{profileInfo.summary}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card mt-3 text-bg-dark p-2">
+                    {{#if profileInfo.badges}}
+                        <h5>Badge Earned</h5>
+                        <div class="p-2">
+                            {{#each profileInfo.badges}}
+                                    <img class="mx-auto d-block" height="150" width="150" src="/public/img/badges/{{icon}}" alt="Badges Earned" />
+                                    <p class="mb-0 text-center text-secondary fs-6 fw-lighter">{{description}}</p>
+                            {{/each}}
+                        </div>
+                    {{else}}
+                        <p class="text-secondary text-center p-4 mb-0"><em>No badges to display</em></p>
+                    {{/if}}
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="card mb-3 text-bg-dark">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <h6 class="mb-0">Name</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary">
+                                {{profileInfo.first_name}} {{profileInfo.last_name}}
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <h6 class="mb-0">Email</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary">
+                                {{profileInfo.email}}
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <h6 class="mb-0">Personal Summary</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary">
+                                {{profileInfo.summary}}
+                            </div>
+                        </div>
+                        <hr />
+                        {{#if profileInfo.parent_email}}
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">Guardian's Email</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    {{profileInfo.parent_email}}
+                                </div>
+                            </div>
+                            <hr />
+                        {{/if}}
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <h6 class="mb-0">Skills</h6>
+                            </div>
+                            <div class="col-sm-9">
+                                <ol class="list-group list-group-horizontal mb-2">
+                                    {{#each profileInfo.skills}}
+                                        <li class="list-group-item border-0 p-0 me-2 bg-transparent">
+                                            <p class="badge rounded-pill text-bg-info m-0">{{this}}</p>
+                                        </li>
+                                    {{/each}}
+                                </ol>
+                            </div>
+                        </div>
+                        <hr />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row gutters-sm">
+            <div class="col-sm-12 mb-3">
+                <div class="card h-100 text-bg-dark">
+                    <div class="card-body">
+                        <h5 class="d-flex align-items-center mb-3">Reviews</h5>
+                        {{#each profileInfo.reviews}}
+                            <div class="p-2 border-bottom">
+                                <!-- Name first -->
+                                <p class="mb-0 fw-bold">{{author_first_name}} {{author_last_name}}</p>
+                                <!-- Then star ratings -->
+                                <div class="mb-1 ratings-render" data-rating={{rating}}></div>
+                                <!-- Finally, the review text -->
+                                <p class="text-secondary">{{feedback}}</p>
+                            </div>
+                        {{/each}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+{{> common/ratings_generator}}

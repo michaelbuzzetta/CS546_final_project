@@ -1,0 +1,81 @@
+<main class="container">
+
+    <section id="intro-hero-section" class="text-center mb-4">
+        <h1>{{pageTitle}}</h1>
+        <p>Unlock Expertise, One Mentor at a Time</p>
+        <p>Discover a personalized learning experience with our 1-on-1 mentoring
+            platform. Connect with verified professors and industry experts from
+            around the world to enhance your skills and dive into niche topics.
+            Whether you're exploring a new field or mastering a specific
+            subject, our mentors are here to guide you. Empower your growth, and
+            let expertise meet accessibility.</p>
+    </section>
+    <section id="best-mentors-hero" class="mb-4">
+        <h2 class="text-center">Our Top Mentors!</h2>
+        <div class="row justify-content-center">
+            {{#each mentors}}
+
+                <div
+                    class="card col-md-3 col-sm-4 m-2 text-bg-dark text-light p-2"
+                >
+                    <a
+                        class="text-decoration-none text-light"
+                        href="/profile/mentor/{{_id}}"
+                    >
+                        <div class="d-flex flex-row justify-content-between">
+                            <div class="mx-1">
+                                {{#if profile_image}}
+                                    <img
+                                        src="{{profile_image}}"
+                                        alt="{{name}}"
+                                        class="rounded-circle"
+                                        width="64"
+                                        height="64"
+                                    >
+                                {{else}}
+                                    <i
+                                        class="fa-solid fa-user"
+                                        style="color: #003c8a; font-size:64"
+                                    ></i>
+                                {{/if}}
+                            </div>
+                            <div class="mx-1">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{name}}</h5>
+                                    <div class="text-break text-wrap">
+                                        <p
+                                            class="text-secondary mb-0"
+                                        >{{summary}}</p>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+            {{/each}}
+        </div>
+
+    </section>
+
+    {{#if subject_areas}}
+        <section id="subject-areas-hero" class="text-center mb-4">
+            <h2>Explore a variety of subjects!</h2>
+            <div class="row justify-content-center">
+                {{#each subject_areas}}
+                    <div class="card col-md-3 col-sm-4 m-2 text-bg-dark">
+                        <div class="card-body text-light">
+                            <h5 class="card-title text-start">{{name}}</h5>
+                            <p class="card-text"> {{description}}</p>
+                            <a
+                                class="btn btn-sm btn-info"
+                                href="/subjects/mentors/{{_id}}"
+                            >Show Mentors</a>
+                        </div>
+                    </div>
+                {{/each}}
+            </div>
+        </section>
+    {{/if}}
+</main>

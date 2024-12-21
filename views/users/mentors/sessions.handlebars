@@ -1,0 +1,99 @@
+<main class="container my-3">
+    <div class="row d-flex text-center">
+        <h2>My sessions</h2>
+    </div>
+    <div class="row pt-4 gy-2" id="sessions-list-div">
+        {{#if sessions}}
+            {{#each sessions}}
+                <div class="card text-bg-dark">
+                    <div class="card-body" id="session-card-{{this._id}}">
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <div class="card-text"><strong>Mentee Name:</strong>
+                                    {{this.mentee_name}}&nbsp;<a class="btn btn-info" style="--bs-btn-padding-y: .1rem; --bs-btn-padding-x: .2rem; --bs-btn-font-size: .75rem;" href="/mentee/{{this.mentee_id}}">View Profile</a></div>
+                                <div class="card-text"><strong>Subject Area:</strong>
+                                    {{this.subject_area}}</div>
+                                <div class="card-text"><strong>From:</strong>
+                                    {{#formatDateTime
+                                        this.start_time
+                                    }}{{/formatDateTime}}</div>
+                                <div class="card-text"><strong>To: </strong>
+                                    {{#formatDateTime
+                                        this.end_time
+                                    }}{{/formatDateTime}}</div>
+
+                                <div class="card-link"><strong>Meeting Link:
+                                    </strong>
+                                    <a href="{{this.meeting_link}}">Zoom Call</a></div>
+                            </div>
+                            <div>
+
+                                {{#if
+                                    (happeningNow this.start_time this.end_time)
+                                }}
+                                    <div
+                                        class="card-text fs-6 fw-lighter fst-italic"
+                                    ><a
+                                            class="btn btn-info"
+                                            href="{{this.meeting_link}}"
+                                        >Happening Now!</a>
+                                    </div>
+                                {{else}}
+                                    {{#if (beforeNow this.end_time)}}
+                                        <button
+                                                class="btn btn-light review-btn"
+                                                data-session-id="{{this._id}}"
+                                                data-mentor-id="{{this.mentor_id}}"
+                                                data-mentee-id="{{this.mentee_id}}"
+                                            >Leave a review</button>
+                                    {{else}}
+                                        {{#if (afterNow this.start_time)}}
+                                            <button
+                                                class="btn btn-danger cancel-btn"
+                                                data-session-id="{{this._id}}"
+                                                data-mentor-id="{{this.mentor_id}}"
+                                                data-mentee-id="{{this.mentee_id}}"
+                                            >Cancel</button>
+                                        {{/if}}
+                                    {{/if}}
+                                {{/if}}
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            {{/each}}
+        {{else}}
+            <p class="text-center fs-6 fw-lighter fst-italic">No sessions.</p>
+        {{/if}}
+    </div>
+    {{>common/review-modal}}
+</main>
+
+<div class="toast-container position-fixed bottom-0 end-0 p-3">
+    <div
+        id="alert-toast"
+        class="toast text-bg-dark"
+        role="alert"
+        aria-live="assertive"
+        aria-atomic="true"
+    >
+        <div class="toast-body p-2">
+            <div class="row gx-2">
+                <div class="col"><button
+                        type="button"
+                        class="btn-close"
+                        data-bs-dismiss="toast"
+                        aria-label="Close"
+                    ></button></div>
+                <div class="col">
+                    <p class="mb-0" id="toast-content"></p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+{{> users/mentee-manage-sessions}}
+{{>users/add-review userData=userData}}

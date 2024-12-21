@@ -1,0 +1,9 @@
+<main class="container my-5">
+    <div class="my-4 ">
+        <a class="text-white" href="/forum/{{post.forum_id}}"><i class="fa-solid fa-arrow-left fa-sm" style="color: #ffffff;"></i>  Back to {{post.forum_title}}</a>
+    </div>
+    
+    <div class="text-bg-dark rounded p-2">
+        {{>forum/single-post-html post=post showReplies=true}}
+    </div>
+</main>
